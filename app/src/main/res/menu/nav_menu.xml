@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/friends_circle"
+            android:icon="@drawable/baseline_people_24"
+            android:title="Circulo de Amigos"/>
+        <item
+            android:id="@+id/medical_records"
+            android:icon="@drawable/baseline_health_and_safety_24"
+            android:title="Ficha Medica"/>
+        <item
+            android:id="@+id/contactos_emergencia"
+            android:icon="@drawable/baseline_contact_emergency_24"
+            android:title="Contactos de emergencia"/>
+        <item
+            android:id="@+id/notifications"
+            android:icon="@drawable/baseline_notifications_24"
+            android:title="Notificaciones"/>
+    </group>
+
+    <item
+        android:title="">
+
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/baseline_logout_24"
+                android:title="Logout"/>
+        </menu>
+
+    </item>
+</menu>
