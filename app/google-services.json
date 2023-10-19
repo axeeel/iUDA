@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "331670994576",
+    "project_id": "iuda-edd17",
+    "storage_bucket": "iuda-edd17.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331670994576:android:31966522721593f1426215",
+        "android_client_info": {
+          "package_name": "com.example.iuda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "331670994576-qr5qkn3b62buil69rih3cngqqa1dkgom.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4bFICNdENwxc2SXGmy3ubxbP6WPEFGus"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "331670994576-qr5qkn3b62buil69rih3cngqqa1dkgom.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

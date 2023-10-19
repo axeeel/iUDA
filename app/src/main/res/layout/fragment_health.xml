@@ -1,0 +1,74 @@
+<!-- res/layout/fragment_medical_data.xml -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginTop="120dp">
+
+    <TextView
+        android:id="@+id/usernamee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/etBloodType"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="8dp"
+        android:layout_marginTop="20dp"
+        android:drawablePadding="8dp"
+        android:hint="Blood Type"
+        android:background="@drawable/blue_border"/>
+
+    <EditText
+        android:id="@+id/etDiseases"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="8dp"
+        android:drawablePadding="8dp"
+        android:layout_marginTop="20dp"
+        android:hint="Diseases"
+        android:background="@drawable/blue_border"/>
+
+    <EditText
+        android:id="@+id/etMedications"
+        android:background="@drawable/blue_border"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:drawablePadding="8dp"
+        android:layout_marginTop="20dp"
+        android:padding="8dp"
+        android:hint="Medications" />
+
+    <EditText
+        android:id="@+id/etAllergies"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/blue_border"
+        android:drawablePadding="8dp"
+        android:layout_width="match_parent"
+        android:padding="8dp"
+        android:layout_height="50dp"
+        android:hint="Allergies" />
+
+    <EditText
+        android:id="@+id/etInsuranceNumber"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/blue_border"
+        android:drawablePadding="8dp"
+        android:layout_width="match_parent"
+        android:padding="8dp"
+        android:layout_height="50dp"
+        android:hint="Insurance Number" />
+
+    <Button
+        android:id="@+id/btnSaveMedicalData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Save Medical Data"
+        />
+</LinearLayout>
