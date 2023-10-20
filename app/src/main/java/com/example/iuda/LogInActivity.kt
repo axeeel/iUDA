@@ -78,38 +78,6 @@ class LogInActivity : AppCompatActivity() {
         prefs.saveEmail(email)
     }
 
-
-
-    /*// Función para iniciar sesión de usuarios
-    private fun loginUsers(username: String, password: String) {
-        // Realizar una consulta para encontrar al usuario con el nombre de usuario proporcionado
-        databaseReference.orderByChild("username").equalTo(username).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // Manejar los datos obtenidos después de la consulta
-                if (dataSnapshot.exists()) {
-                    // Iterar sobre los resultados para verificar la contraseña
-                    for (userSnapshot in dataSnapshot.children) {
-                        val userData = userSnapshot.getValue(UserProfile::class.java)
-                        if (userData != null && userData.password == password) {
-                            // Mostrar mensaje de inicio de sesión exitoso y navegar a la actividad principal
-                            Toast.makeText(this@LogInActivity, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
-                            startActivity(Intent(this@LogInActivity, MainActivity::class.java))
-                            finish()
-                            return
-                        }
-                    }
-                }
-                // Mostrar mensaje de fallo de inicio de sesión si no se encontró el usuario o la contraseña es incorrecta
-                Toast.makeText(this@LogInActivity, "LogIn Failed", Toast.LENGTH_SHORT).show()
-            }
-
-            // Manejar los casos en que se produce un error en la lectura de datos desde la base de datos
-            override fun onCancelled(databaseError: DatabaseError) {
-                Toast.makeText(this@LogInActivity, "Database Error: ${databaseError.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }*/
-
     //funcion de alerta
     private fun showAlert() {
         val builder = AlertDialog.Builder(this)
