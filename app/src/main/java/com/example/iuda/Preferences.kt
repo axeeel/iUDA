@@ -6,7 +6,7 @@ class Preferences(val context:Context) {
     val SHARED_INFO = "Mydtb"
     val SHARED_EMAIL = "email"
     val SHARED_ID = "id"
-    val SHARED_USER_NAME = "username"
+    val SHARED_USER_NAME = "fullName"
     val storage = context.getSharedPreferences(SHARED_INFO,0)
 
     //Guardar los valores de las variables
@@ -18,8 +18,8 @@ class Preferences(val context:Context) {
         storage.edit().putString(SHARED_ID, id).apply()
     }
 
-    fun saveUserName(username:String){
-        storage.edit().putString(SHARED_USER_NAME, username).apply()
+    fun saveName(fullName:String){
+        storage.edit().putString(SHARED_USER_NAME, fullName).apply()
     }
 
     //Obtener los valores de las variables
@@ -31,7 +31,7 @@ class Preferences(val context:Context) {
         return storage.getString(SHARED_ID,"")!!
     }
 
-    fun getUserName():String{
+    fun getName():String{
         return storage.getString(SHARED_USER_NAME,"")!!
     }
 

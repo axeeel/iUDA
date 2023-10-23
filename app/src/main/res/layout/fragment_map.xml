@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.MapFragment"/>
+    android:layout_height="match_parent">
+
+    <!-- Agrega tu fragment de Google Maps -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <!-- Agrega el TextView que se mostrará delante del Google Maps -->
+    <TextView
+        android:id="@+id/txt_welcomeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="75dp"
+        android:layout_gravity="top|center_horizontal"
+        android:background="@drawable/background_border"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+</FrameLayout>

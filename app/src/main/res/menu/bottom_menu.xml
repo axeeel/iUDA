@@ -3,14 +3,14 @@
 
     <item
         android:id="@+id/bottom_add_friend"
-        android:title="Friends"
+        android:title="Amigos"
         android:icon="@drawable/baseline_person_add_24"/>
     <item
         android:id="@+id/bottom_location"
-        android:title="Location"
+        android:title="Ubicación"
         android:icon="@drawable/baseline_my_location_24"/>
     <item
         android:id="@+id/bottom_profile"
-        android:title="Profile"
+        android:title="Perfil"
         android:icon="@drawable/twotone_person_24"/>
 </menu>

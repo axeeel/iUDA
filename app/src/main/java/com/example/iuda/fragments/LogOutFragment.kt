@@ -1,5 +1,6 @@
 package com.example.iuda.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.widget.Button
 import com.example.iuda.R
 import com.example.iuda.iuda.Companion.prefs
 
+@SuppressLint("StaticFieldLeak")
 private lateinit var btn_CerrarSesion:Button
 
 class LogOutFragment : Fragment() {
@@ -18,9 +20,7 @@ class LogOutFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_log_out, container, false)
          btn_CerrarSesion = root.findViewById(R.id.btn_CerrarSesion)
-        btn_CerrarSesion.setOnClickListener {
-            prefs.wipe()
-        }
+
 
         return root
     }

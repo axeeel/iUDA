@@ -14,7 +14,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-
 class UploadActivity : AppCompatActivity() {
     // Declaración de variables
     private lateinit var binding: ActivityUploadBinding
@@ -53,11 +52,8 @@ class UploadActivity : AppCompatActivity() {
 
             // Verificar si todos los campos obligatorios están completos
             if (username.isNotEmpty() && name.isNotEmpty() && email.isNotEmpty() && phone.isNotEmpty() && password.isNotEmpty()) {
-                //Aqui ira la funcion de autenticacion
-                AuthUser(email, password)
                 // Llamar a la función para registrar al usuario
-                signupUser(username, name, email, phone, password, gender)
-
+                AuthUser(email, password, username, name, phone, gender)
 
             } else {
                 // Mostrar un mensaje de advertencia si faltan datos
@@ -66,26 +62,52 @@ class UploadActivity : AppCompatActivity() {
         }
     }
 
-    private fun AuthUser(email: String, password: String){
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password)
+    private fun AuthUser(email: String, password: String, username: String, name: String, phone: String, gender: String) {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { authResult ->
+                if (authResult.isSuccessful) {
+                    // Registro exitoso, obtener el UID del nuevo usuario
+                    val user = authResult.result?.user
+                    if (user != null) {
+                        val uid = user.uid
+                        // Llamar a la función para registrar al usuario en la base de datos
+                        signupUser(uid, username, name, email, phone, password, gender)
+                    } else {
+                        // Manejar error al obtener el UID
+                        Toast.makeText(this@UploadActivity, "Error al obtener UID del usuario", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    // Manejar errores de autenticación
+                    val error = authResult.exception
+                    if (error != null) {
+                        Toast.makeText(this@UploadActivity, "Error al registrar usuario: ${error.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
     }
+
     // Función para registrar al usuario en la base de datos
-    private fun signupUser(username: String, fullname: String, email: String, phone: String, password: String, gender: String) {
+    private fun signupUser(uid: String, username: String, fullname: String, email: String, phone: String, password: String, gender: String) {
         // Realizar una consulta para verificar si ya existe un usuario con el mismo nombre de usuario
         databaseReference.orderByChild("username").equalTo(username).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(datasnapshot: DataSnapshot) {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Manejar los datos obtenidos después de la consulta
-                if (!datasnapshot.exists()) {
-                    // Si el nombre de usuario no existe, generar una nueva clave única y guardar el usuario en la base de datos
-                    val id = databaseReference.push().key
-                    val userData = UserProfile(id, username, fullname, email, phone, password, gender)
-                    databaseReference.child(id!!).setValue(userData)
-
-                    // Mostrar un mensaje de éxito y navegar a la actividad de inicio de sesión
-                    Toast.makeText(this@UploadActivity, "Resgistro exitoso", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@UploadActivity, LogInActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                if (!dataSnapshot.exists()) {
+                    // Si el nombre de usuario no existe, guardar el usuario en la base de datos
+                    val userData = UserProfile(uid, username, fullname, email, phone, password, gender)
+                    databaseReference.child(uid).setValue(userData)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                // Mostrar un mensaje de éxito y navegar a la actividad de inicio de sesión
+                                Toast.makeText(this@UploadActivity, "Registro exitoso", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this@UploadActivity, LogInActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                // Manejar errores
+                                Toast.makeText(this@UploadActivity, "Error al registrar usuario en la base de datos", Toast.LENGTH_SHORT).show()
+                            }
+                        }
                 } else {
                     // Mostrar un mensaje si el usuario ya existe y limpiar el campo de nombre de usuario
                     Toast.makeText(this@UploadActivity, "Ya existe ese nombre de usuario", Toast.LENGTH_SHORT).show()
