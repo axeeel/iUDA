@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/colorFav" /> <!-- Cambia a tu color deseado para el fondo presionado -->
+    <corners android:radius="20dp" /> <!-- Ajusta el radio según tus preferencias -->
+</shape>

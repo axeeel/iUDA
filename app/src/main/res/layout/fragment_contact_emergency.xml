@@ -2,15 +2,111 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
+    android:background="@drawable/general_background"
     tools:context=".fragments.ContactEmergencyFragment">
 
-    <TextView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Contact Emergency"
-        android:gravity="center"
-        android:textColor="@color/blue"
-        android:textSize="36sp"/>
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="105dp"
+        android:layout_marginHorizontal="20dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        android:layout_gravity="center">
+
+        <ImageButton
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:id="@+id/btnAdd"
+            android:src="@drawable/add_contact"
+            android:scaleType="centerInside"
+            android:background="@color/white"
+
+            />
+
+        <LinearLayout
+            android:id="@+id/lnyForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:padding="24dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:text="Contacto de Emergencia"
+                android:textStyle="bold"
+                android:layout_marginTop="15dp"
+                android:textSize="25sp"
+                android:textColor="@color/blue"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp"/>
+            <EditText
+                android:id="@+id/cnName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="8dp"
+                android:drawableLeft="@drawable/baseline_person_24"
+                android:hint="Nombre"
+                android:padding="8dp"
+                android:background="@drawable/blue_border"/>
+
+            <EditText
+                android:id="@+id/cnPhone"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:padding="8dp"
+                android:drawableLeft="@drawable/baseline_local_phone_24"
+                android:drawablePadding="8dp"
+                android:layout_marginTop="20dp"
+                android:hint="Celular"
+                android:background="@drawable/blue_border"/>
+
+            <EditText
+                android:id="@+id/cnFamiliar"
+                android:background="@drawable/blue_border"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawableLeft="@drawable/baseline_family_restroom_24"
+                android:drawablePadding="8dp"
+                android:layout_marginTop="20dp"
+                android:padding="8dp"
+                android:hint="Parentesco" />
+
+            <EditText
+                android:id="@+id/cnDireccion"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/blue_border"
+                android:drawablePadding="8dp"
+                android:drawableLeft="@drawable/baseline_location_city_24"
+                android:layout_width="match_parent"
+                android:padding="8dp"
+                android:layout_height="50dp"
+                android:hint="Dirección de contacto" />
+
+            <Button
+                android:id="@+id/btnSaveMedicalData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="Guardar"
+                android:layout_gravity="center"
+                />
+
+
+        </LinearLayout>
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+    
 
 </FrameLayout>

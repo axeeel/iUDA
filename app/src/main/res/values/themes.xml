@@ -5,8 +5,39 @@
         <item name="colorPrimary">@color/blue</item>
         <item name="colorPrimaryVariant">@color/blue</item>
         <item name="android:statusBarColor">@color/blue_label</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="android:queryBackground">@color/white</item>
+<!--        <item name="android:textColorHint">@color/white</item>-->
+<!--        <item name="iconTint">@color/white</item>-->
+<!--        <item name="navigationIconTint">@color/white</item>-->
+<!--        <item name="itemIconTint">@color/white</item>-->
+<!--        <item name="buttonIconTint">@color/white</item>-->
+<!--        <item name="android:textAppearanceSearchResultSubtitle">@color/white</item>-->
+<!--        <item name="android:textAppearanceSearchResultTitle">@color/white</item>-->
+<!--        <item name="android:fillColor">@color/white</item>-->
+<!--        <item name="android:imageButtonStyle">@color/white</item>-->
+<!--        <item name="editTextColor">@color/white</item>-->
+<!--        <item name="textFillColor">@color/white</item>-->
 
     </style>
 
-    <style name="Theme.IUDA" parent="Base.Theme.IUDA" />
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+    
+    <style name="ThemeOverlay.SearchView" parent="">
+        <item name="editTextColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+
+
 </resources>

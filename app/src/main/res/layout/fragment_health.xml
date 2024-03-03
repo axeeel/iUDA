@@ -1,74 +1,110 @@
-<!-- res/layout/fragment_medical_data.xml -->
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:layout_marginTop="120dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/general_background"
+    tools:context=".fragments.HealthFragment">
 
-    <TextView
-        android:id="@+id/usernamee"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <EditText
-        android:id="@+id/etBloodType"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:padding="8dp"
-        android:layout_marginTop="20dp"
-        android:drawablePadding="8dp"
-        android:hint="Blood Type"
-        android:background="@drawable/blue_border"/>
-
-    <EditText
-        android:id="@+id/etDiseases"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:padding="8dp"
-        android:drawablePadding="8dp"
-        android:layout_marginTop="20dp"
-        android:hint="Diseases"
-        android:background="@drawable/blue_border"/>
-
-    <EditText
-        android:id="@+id/etMedications"
-        android:background="@drawable/blue_border"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:drawablePadding="8dp"
-        android:layout_marginTop="20dp"
-        android:padding="8dp"
-        android:hint="Medications" />
-
-    <EditText
-        android:id="@+id/etAllergies"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/blue_border"
-        android:drawablePadding="8dp"
-        android:layout_width="match_parent"
-        android:padding="8dp"
-        android:layout_height="50dp"
-        android:hint="Allergies" />
-
-    <EditText
-        android:id="@+id/etInsuranceNumber"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/blue_border"
-        android:drawablePadding="8dp"
-        android:layout_width="match_parent"
-        android:padding="8dp"
-        android:layout_height="50dp"
-        android:hint="Insurance Number" />
-
-    <Button
-        android:id="@+id/btnSaveMedicalData"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="375dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="Save Medical Data"
-        />
-</LinearLayout>
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:padding="24dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:text="Datos Medicos"
+                android:textStyle="bold"
+                android:layout_marginTop="15dp"
+                android:textSize="25sp"
+                android:textColor="@color/blue"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp"/>
+            <EditText
+                android:id="@+id/etBloodType"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:drawablePadding="8dp"
+                android:drawableLeft="@drawable/outline_bloodtype_24"
+                android:hint="Tipo de sangre"
+                android:padding="8dp"
+                android:background="@drawable/blue_border"/>
+
+            <EditText
+                android:id="@+id/etDiseases"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:padding="8dp"
+                android:drawableLeft="@drawable/outline_sick_24"
+                android:drawablePadding="8dp"
+                android:layout_marginTop="20dp"
+                android:hint="Enfermedades"
+                android:background="@drawable/blue_border"/>
+
+            <EditText
+                android:id="@+id/etMedications"
+                android:background="@drawable/blue_border"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawableLeft="@drawable/outline_medication_24"
+
+                android:drawablePadding="8dp"
+                android:layout_marginTop="20dp"
+                android:padding="8dp"
+                android:hint="Tratamiento medico" />
+
+            <EditText
+                android:id="@+id/etAllergies"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/blue_border"
+                android:drawablePadding="8dp"
+                android:drawableLeft="@drawable/outline_medical_information_24"
+                android:layout_width="match_parent"
+                android:padding="8dp"
+                android:layout_height="50dp"
+                android:hint="Alergias" />
+
+            <EditText
+                android:id="@+id/etInsuranceNumber"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/blue_border"
+                android:drawablePadding="8dp"
+                android:layout_width="match_parent"
+                android:drawableLeft="@drawable/outline_numbers_24"
+                android:padding="8dp"
+                android:layout_height="50dp"
+                android:hint="NSS" />
+
+            <Button
+                android:id="@+id/btnSaveMedicalData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="Guardar"
+                android:layout_gravity="center"
+                />
+
+            <Button
+                android:id="@+id/btnRefreshMedicalData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Actualizar"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

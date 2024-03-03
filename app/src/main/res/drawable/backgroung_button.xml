@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- res/drawable/backgroung_button.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/colorNormal" /> <!-- Cambia a tu color deseado para el fondo normal -->
+    <corners android:radius="20dp" /> <!-- Ajusta el radio según tus preferencias -->
+</shape>
+
+

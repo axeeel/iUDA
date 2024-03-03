@@ -4,4 +4,10 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <!-- Establece el color del texto del hint -->
+        <item name="android:textColorHint">@color/white</item>
+        <item name="editTextColor">@color/white</item>
+    </style>
+
 </resources>

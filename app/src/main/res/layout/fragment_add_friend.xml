@@ -3,39 +3,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.AddFriendFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.AddFriendFragment"
+    android:background="@drawable/general_background">
 
-    <!-- TODO: Update blank fragment layout -->
-    <!-- EditText para la entrada de búsqueda -->
-    <EditText
-        android:id="@+id/editTextSearch"
-        android:layout_width="290dp"
-        android:layout_height="wrap_content"
-        android:hint="Buscar por Nombre"
-        android:padding="10dp"
-        android:layout_marginStart="10dp"
-        android:background="@drawable/blue_border"
-        android:layout_marginTop="75dp"
-        />
 
-    <!-- Botón para iniciar la búsqueda -->
-    <Button
-        android:id="@+id/buttonSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginTop="75dp"
-        android:layout_marginEnd="10dp"
-        android:text="Buscar"
-        />
 
-    <!-- RecyclerView para mostrar los resultados de la búsqueda -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="100dp"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="75dp"
+            android:layout_marginStart="12dp"
+            android:id="@+id/search"
+            app:iconifiedByDefault="false"
+            app:searchHintIcon="@null"
+            app:queryHint="Buscar..."
+            app:backgroundTint="@color/white"
+            android:focusable="false"
+            app:closeIcon="@drawable/baseline_clear_24"
+            app:searchIcon="@drawable/baseline_search_24"
+            android:background="@drawable/white_border"
+            style="@style/SearchViewStyle"
+            android:theme="@style/ThemeOverlay.SearchView"/>
+        <!-- RecyclerView para mostrar los resultados de la búsqueda -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView1"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/search"
+            android:layout_height="580dp"
+            android:scrollbars="vertical"
+            />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="95dp"
+            android:src="@drawable/baseline_people_alt_24"
+           android:background="@drawable/background_circle"
+            app:rippleColor="@color/blue"
+            android:tint="@color/white"
+            android:id="@+id/btnRequests"
+
+            />
+    </RelativeLayout>
+
 
 
 </FrameLayout>

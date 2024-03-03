@@ -1,0 +1,6 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Color cuando el switch está en ON -->
+    <item android:color="@color/green" android:state_checked="true"/>
+    <!-- Color predeterminado cuando el switch está en OFF -->
+    <item android:color="@color/switch_thumb_off"/> <!-- Cambia @color/switch_thumb_off por tu color deseado para el estado OFF -->
+</selector>

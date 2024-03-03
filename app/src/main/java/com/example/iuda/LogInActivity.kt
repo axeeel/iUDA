@@ -71,8 +71,6 @@ class LogInActivity : AppCompatActivity() {
         }
     }
 
-
-
     fun accessToDetail(email: String){
         //Guardar correo
         prefs.saveEmail(email)

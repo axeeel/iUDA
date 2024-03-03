@@ -1,0 +1,6 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Color cuando el switch está en ON -->
+    <item android:color="@color/light_green" android:state_checked="true"/> <!-- Usa un tono de verde más claro para la pista -->
+    <!-- Color predeterminado cuando el switch está en OFF -->
+    <item android:color="@color/switch_track_off"/> <!-- Cambia @color/switch_track_off por tu color deseado para el estado OFF -->
+</selector>

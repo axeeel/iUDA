@@ -15,6 +15,8 @@ import com.example.iuda.databinding.ActivityMainBinding
 import com.example.iuda.fragments.AddFriendFragment
 import com.example.iuda.fragments.CircleFriendsFragment
 import com.example.iuda.fragments.ContactEmergencyFragment
+import com.example.iuda.fragments.DeviceActivity
+import com.example.iuda.fragments.DevicesFragment
 import com.example.iuda.fragments.HealthFragment
 import com.example.iuda.fragments.LogOutFragment
 import com.example.iuda.fragments.MapFragment
@@ -23,8 +25,12 @@ import com.example.iuda.fragments.ProfileFragment
 import com.example.iuda.iuda.Companion.prefs
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.messaging.FirebaseMessaging
 
 enum class ProviderType{
     BASIC
@@ -87,7 +93,48 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             else -> MapFragment() // Fragmento predeterminado en caso de ID no válido
         }
 
+        obtenerTokenFCM()
         openFragment(initialFragment)
+    }
+
+    private fun obtenerTokenFCM() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("FCM", "Fetching FCM registration token failed", task.exception)
+                return@addOnCompleteListener
+            }
+
+            // Obtén el token
+            val token = task.result
+            Toast.makeText(this, "Se registró el token con exito", Toast.LENGTH_SHORT).show()
+
+            // Aquí puedes enviar el token a tu servidor o realizar alguna acción con él
+            Log.d("FCM", "FCM Token: $token")
+            enviarTokenAServidor(token)
+        }
+    }
+
+    private fun enviarTokenAServidor(token: String) {
+        val userRef = FirebaseDatabase.getInstance().getReference("Users")
+        val myUID = prefs.getId()
+
+        userRef.child(myUID).addListenerForSingleValueEvent(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    userRef.child(myUID).child("tokeFCM").setValue(token)
+                }else{
+                    Log.d("Debug", "No se encontró el usuario en la base de datos")
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("Debug", "onCancelled: $error")
+                Toast.makeText(
+                    this@MainActivity,
+                    "Algo salio mal",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
     }
 
     fun getInformationUser() {
@@ -99,7 +146,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             databaseReference.child(uid).get().addOnSuccessListener {
                 if(it.exists()){
                     val fullname = it.child("fullName").value
+                    val uidUser = it.child("id").value
+                    val username = it.child("username").value
                     prefs.saveName(fullname.toString())
+                    prefs.saveId(uidUser.toString())
+                    prefs.saveUserName(username.toString())
                 } else {
                     Toast.makeText(this, "UID no encontrado", Toast.LENGTH_SHORT).show()
                 }
@@ -110,6 +161,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Manejar eventos de selección en el cajón de navegación.
         when (item.itemId) {
@@ -117,6 +169,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.medical_records -> openFragment(HealthFragment())
             R.id.contactos_emergencia -> openFragment(ContactEmergencyFragment())
             R.id.notifications -> openFragment(NotificationsFragment())
+            R.id.devices ->{val intent = Intent(this, DeviceActivity::class.java)
+            startActivity(intent)}
+
+
             R.id.nav_logout -> {
                 // Iniciar LoginActivity
                 prefs.wipe()

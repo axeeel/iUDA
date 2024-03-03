@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/selector_button_add_friend.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/baseline_person_add_24" android:state_pressed="false"/>
+    <item android:drawable="@drawable/baseline_check_circle_outline_24" android:state_pressed="true"/>
+    <item android:drawable="@drawable/baseline_person_add_24"/>
+</selector>

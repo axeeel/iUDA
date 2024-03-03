@@ -11,91 +11,172 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.iuda.MedicalData
 import com.example.iuda.R
+import com.example.iuda.databinding.FragmentCircleFriendsBinding
+import com.example.iuda.databinding.FragmentHealthBinding
+import com.example.iuda.iuda
+import com.example.iuda.iuda.Companion.prefs
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+
 class HealthFragment : Fragment() {
-
-    private lateinit var databaseReference: DatabaseReference
-    private lateinit var userId: String // El ID del usuario actual
-    private lateinit var usernamee: TextView
-    private lateinit var btnSave: Button
-    private lateinit var txtBloodType: EditText
-    private lateinit var txtDiseases: EditText
-    private lateinit var txtMedications: EditText
-    private lateinit var txtAllergies: EditText
-    private lateinit var txtInsuranceNumber: EditText
-
-
-
+private lateinit var binding: FragmentHealthBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val username = arguments?.getString("username")
-        val root = inflater.inflate(R.layout.fragment_health, container, false)
-        txtBloodType = root.findViewById(R.id.etBloodType)
-        txtDiseases = root.findViewById(R.id.etDiseases)
-        txtMedications = root.findViewById(R.id.etMedications)
-        txtAllergies = root.findViewById(R.id.etAllergies)
-        txtInsuranceNumber = root.findViewById(R.id.etInsuranceNumber)
-        usernamee = root.findViewById(R.id.usernamee)
-        usernamee.setText(username).toString()
-
-        btnSave = root.findViewById(R.id.btnSaveMedicalData)
-        btnSave.setOnClickListener {
-            saveMedicalData()
-        }
-
-        return root
+        binding = FragmentHealthBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val btnRefresh = binding.btnRefreshMedicalData
+        val currentUserID = prefs.getId()
+        val btnSave = binding.btnSaveMedicalData
 
-        // Obtener el ID del usuario actual que se pasa como argumento
-        userId = arguments?.getString("id", "userId") ?: ""
+        btnRefresh.visibility = View.INVISIBLE
+        // Llamar a checkExist y pasar btnSave como argumento
+        checkExist(currentUserID, btnSave,btnRefresh)
 
-        // Inicializar la referencia a la base de datos
-        databaseReference = FirebaseDatabase.getInstance().reference.child("MedicalData")
+        btnSave.setOnClickListener {
+            saveMedicalHealth(currentUserID)
+        }
     }
 
-    private fun saveMedicalData() {
-        val bloodType = txtBloodType.text.toString()
-        val diseases = txtDiseases.text.toString()
-        val medications = txtMedications.text.toString()
-        val allergies = txtAllergies.text.toString()
-        val insuranceNumber = txtInsuranceNumber.text.toString()
 
-        val medicalData = MedicalData(
-            userId,
-            bloodType,
-            diseases,
-            medications,
-            allergies,
-            insuranceNumber
+    private fun checkExist(currentUserID: String, btnSave: Button, btnRefresh:Button) {
+        val databaseReference = FirebaseDatabase.getInstance().getReference("MedicalData")
+
+        databaseReference.child(currentUserID).addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    getMedicalData(currentUserID)
+
+                    btnSave.visibility = View.INVISIBLE
+                    btnRefresh.visibility = View.VISIBLE
+
+                    btnRefresh.setOnClickListener {
+                        enableEditing()
+                        btnRefresh.visibility = View.INVISIBLE
+                        btnSave.visibility = View.VISIBLE
+                    }
+
+
+
+                } else {
+
+                    btnSave.isEnabled = true
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Manejar cualquier error que pueda ocurrir durante la lectura de datos
+                Toast.makeText(requireContext(), "Error al verificar la existencia de datos médicos", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun enableEditing() {
+        // Habilitar la edición de los EditText
+        binding.etBloodType.isFocusable = true
+        binding.etBloodType.isFocusableInTouchMode = true
+
+        // Repite el proceso para los demás EditText
+        binding.etDiseases.isFocusable = true
+        binding.etDiseases.isFocusableInTouchMode = true
+
+        binding.etMedications.isFocusable = true
+        binding.etMedications.isFocusableInTouchMode = true
+
+        binding.etAllergies.isFocusable = true
+        binding.etAllergies.isFocusableInTouchMode = true
+
+        binding.etInsuranceNumber.isFocusable = true
+        binding.etInsuranceNumber.isFocusableInTouchMode = true
+    }
+
+    private fun disableEditing() {
+        // Deshabilitar la edición de los EditText
+        binding.etBloodType.isFocusable = false
+        binding.etBloodType.isFocusableInTouchMode = false
+
+        // Repite el proceso para los demás EditText
+        binding.etDiseases.isFocusable = false
+        binding.etDiseases.isFocusableInTouchMode = false
+
+        binding.etMedications.isFocusable = false
+        binding.etMedications.isFocusableInTouchMode = false
+
+        binding.etAllergies.isFocusable = false
+        binding.etAllergies.isFocusableInTouchMode = false
+
+        binding.etInsuranceNumber.isFocusable = false
+        binding.etInsuranceNumber.isFocusableInTouchMode = false
+    }
+
+    private fun getMedicalData(currentUserID: String) {
+        val databaseReference = FirebaseDatabase.getInstance().getReference("MedicalData")
+
+        databaseReference.child(currentUserID).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    // El usuario tiene datos médicos almacenados
+                    val medicalData = snapshot.getValue(MedicalData::class.java)
+
+                    // Mostrar los datos en los EditText correspondientes
+                    binding.etBloodType.setText(medicalData?.bloodType)
+                    binding.etDiseases.setText(medicalData?.diseases)
+                    binding.etMedications.setText(medicalData?.medications)
+                    binding.etAllergies.setText(medicalData?.allergies)
+                    binding.etInsuranceNumber.setText(medicalData?.insuranceNumber)
+
+                    // Deshabilitar la edición del EditText
+                    disableEditing()
+
+                } else {
+                    // El usuario no tiene datos médicos almacenados
+                    // Puedes manejar la lógica correspondiente aquí, por ejemplo, mostrar un mensaje.
+                    Toast.makeText(requireContext(), "El usuario no tiene datos médicos almacenados", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Manejar cualquier error que pueda ocurrir durante la lectura de datos
+                Toast.makeText(requireContext(), "Error al obtener datos médicos", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+
+    private fun saveMedicalHealth(currentUserID: String) {
+        val sangre = binding.etBloodType.text.toString()
+        val enfermedades = binding.etDiseases.text.toString()
+        val medicos = binding.etMedications.text.toString()
+        val alergias = binding.etAllergies.text.toString()
+        val nss = binding.etInsuranceNumber.text.toString()
+        val databaseReference = FirebaseDatabase.getInstance().getReference("MedicalData")
+        val medicalDataUser = MedicalData(
+            bloodType = sangre,
+            diseases = enfermedades,
+            medications = medicos,
+            allergies = alergias,
+            insuranceNumber = nss
         )
 
-        // Obtener una referencia única para los datos médicos del usuario actual
-        val medicalDataRef = databaseReference.child(userId)
-
-        // Guardar datos médicos en Firebase
-        medicalDataRef.setValue(medicalData)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // Datos médicos guardados exitosamente
-                    Toast.makeText(
-                        requireContext(),
-                        "Datos médicos guardados con éxito",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    // Error al guardar datos médicos
-                    Toast.makeText(
-                        requireContext(),
-                        "Error al guardar datos médicos: ${task.exception?.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+        databaseReference.child(currentUserID).setValue(medicalDataUser)
+            .addOnSuccessListener {
+                Toast.makeText(requireContext(),"Guardado", Toast.LENGTH_SHORT).show()
+                disableEditing()
+                binding.btnSaveMedicalData.visibility = View.INVISIBLE
+                binding.btnRefreshMedicalData.visibility = View.VISIBLE
+            }
+            .addOnFailureListener {
+                Toast.makeText(requireContext(),"Error", Toast.LENGTH_SHORT).show()
             }
     }
 }

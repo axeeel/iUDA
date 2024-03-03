@@ -28,19 +28,43 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Create New Account"
+                android:text="Registrarse"
                 android:textAlignment="center"
                 android:textColor="@color/blue"
                 android:textSize="25sp"
                 android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+                <ImageView
+                    android:id="@+id/imageViewProfile"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/perfil_default"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/background_circle"/>
 
-            <ImageView
-                android:id="@+id/imageViewProfile"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
-                android:src="@drawable/baseline_image_search_24"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"/>
+                <!-- Tu ImageButton para seleccionar una imagen -->
+                <ImageButton
+                    android:id="@+id/select_image_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/twotone_add_a_photo_24"
+                    app:layout_constraintTop_toTopOf="@id/imageViewProfile"
+                    app:layout_constraintStart_toStartOf="@id/imageViewProfile"
+                    app:layout_constraintEnd_toEndOf="@id/imageViewProfile"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewProfile" />
+            </LinearLayout>
+
+
 
             <EditText
                 android:id="@+id/upload_username"
@@ -61,7 +85,7 @@
                 android:drawableLeft="@drawable/baseline_person_24"
                 android:drawablePadding="8dp"
                 android:background="@drawable/blue_border"
-                android:hint="Name"
+                android:hint="Nombre"
                 android:padding="8dp"
                 android:textColor="@color/black" />
             <EditText
@@ -84,7 +108,7 @@
                 android:drawableLeft="@drawable/baseline_local_phone_24"
                 android:drawablePadding="8dp"
                 android:background="@drawable/blue_border"
-                android:hint="Phone"
+                android:hint="Telefono"
                 android:inputType="number"
                 android:padding="8dp"
                 android:textColor="@color/black" />
@@ -97,7 +121,7 @@
                 android:drawableLeft="@drawable/baseline_lock_24"
                 android:drawablePadding="8dp"
                 android:background="@drawable/blue_border"
-                android:hint="Password"
+                android:hint="Contraseña"
                 android:inputType="textPassword"
                 android:padding="8dp"
                 android:textColor="@color/black" />
@@ -115,7 +139,7 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/blue"
-                android:text="Save"
+                android:text="Guardar"
                 android:textSize="18sp"
                 app:cornerRadius="20dp" />
 
